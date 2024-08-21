@@ -5,9 +5,6 @@ namespace VjencanjeIzSnova_WebApp.ViewModels
        public class RegistracijaViewModel
         {
 
-       public string UserId {  get; set; } 
-        
-
        [Required]
        [EmailAddress]
        [DataType(DataType.EmailAddress)]
