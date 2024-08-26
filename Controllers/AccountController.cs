@@ -35,18 +35,24 @@ namespace VjencanjeIzSnova_WebApp.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                //login
-                var result = await _signInManager.PasswordSignInAsync(model.Email!, model.Password!, model.RememberMe, false);
-
-                if (result.Succeeded)
+                // Validacija korisničkih podataka
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    return RedirectToLocal(returnUrl);
-                }
+                    // Sign in 
+                    await _signInManager.SignInAsync(user, model.RememberMe);
 
-                ModelState.AddModelError("", "Neuspješan pokušaj prijave!");
+                    // Redirect na početnu stranicu
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Neuspješan pokušaj prijave!");
+                }
             }
             return View(model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Logout()

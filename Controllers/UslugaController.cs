@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using VjencanjeIzSnova_WebApp.Data;
 using VjencanjeIzSnova_WebApp.Models;
@@ -53,9 +55,11 @@ namespace VjencanjeIzSnova_WebApp.Controllers
         public IActionResult Create()
         {
             ViewBag.Kategorija = new SelectList(_context.Kategorije, "KategorijaId", "Naziv");
-            ViewBag.Partner=new SelectList(_context.Partneri, "PartnerId", "PartnerId");
+            ViewBag.Partner = new SelectList(_context.Partneri, "PartnerId", "PartnerId");
             return View();
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -67,9 +71,12 @@ namespace VjencanjeIzSnova_WebApp.Controllers
                 usluga.Detalji = string.Join(";", Request.Form["Detalji[]"]);
 
                 _context.Add(usluga);
-                await _context.SaveChangesAsync();
 
-                foreach (var file in SlikeFiles)
+                await _context.SaveChangesAsync();
+                if (SlikeFiles != null && SlikeFiles.Count > 0)
+                {
+
+                    foreach (var file in SlikeFiles)
                 {
                     if (file != null && file.Length > 0)
                     {
@@ -91,8 +98,15 @@ namespace VjencanjeIzSnova_WebApp.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
+            return RedirectToAction(nameof(Index));
+        }
+       else {
+        var errors=ModelState.Values.SelectMany(v =>  v.Errors);
+
+            }
+            
+
 
             ViewBag.Kategorija = new SelectList(_context.Kategorije, "KategorijaId", "Naziv", usluga.KategorijaId);
             ViewBag.Partner = new SelectList(_context.Partneri, "PartnerId", "PartnerId", usluga.PartnerId);

@@ -25,9 +25,9 @@ public partial class Usluga
 
     public int PartnerId { get; set; }
 
-    public virtual Kategorije Kategorija { get; set; } = null!;
+    public virtual Kategorije? Kategorija { get; set; } = null!;
 
-    public virtual Partner Partner { get; set; } = null!;
+    public virtual Partner? Partner { get; set; } = null!;
 
     public virtual ICollection<Rezervacija> Rezervacije { get; set; } = new List<Rezervacija>();
 
