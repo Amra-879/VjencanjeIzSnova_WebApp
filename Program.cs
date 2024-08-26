@@ -12,10 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("LocalDb") ?? throw new InvalidOperationException("Connection string 'LocalDb' not found.");
 builder.Services.AddDbContext<VjencanjeIzSnovaDbContext>(options =>
     options.UseSqlite(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+//builder.Services.AddDefaultIdentity<Korisnik>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<VjencanjeIzSnovaDbContext>();
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-//konfiguracija za autentifikaciju korištenjem ASP.NET Core Identity API-a
+//konfiguracija za autentifikaciju koriï¿½tenjem ASP.NET Core Identity API-a
 builder.Services.AddIdentity<Korisnik, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -35,7 +37,7 @@ builder.Services.AddIdentity<Korisnik, IdentityRole>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Account/Login";
+        options.LoginPath = "/login";
         options.AccessDeniedPath = "/Account/AccessDenied";
     });
 builder.Services.AddAuthorization();

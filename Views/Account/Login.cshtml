@@ -1,5 +1,4 @@
-﻿@page "/login"
-@model VjencanjeIzSnova_WebApp.ViewModels.LoginViewModel
+﻿@model VjencanjeIzSnova_WebApp.ViewModels.LoginViewModel
 
 <title>Prijava</title>
 
@@ -14,7 +13,7 @@
         </div>
 
         <div class="col-md-6 right-box">
-            <form asp-action="Login" method="post">
+            <form asp-controller="Account" asp-action="Login" method="post">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2>Dobrodošli!</h2>

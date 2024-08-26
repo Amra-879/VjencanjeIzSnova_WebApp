@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VjencanjeIzSnova_WebApp.Data;
 
@@ -10,9 +11,11 @@ using VjencanjeIzSnova_WebApp.Data;
 namespace VjencanjeIzSnova_WebApp.Migrations
 {
     [DbContext(typeof(VjencanjeIzSnovaDbContext))]
-    partial class VjencanjeIzSnovaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240824071322_ModelChanges3")]
+    partial class ModelChanges3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");

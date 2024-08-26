@@ -61,6 +61,7 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
         modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
         modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
         modelBuilder.Entity<PartnerViewModel>().HasNoKey();
+        modelBuilder.Entity<UslugaViewModel>().HasNoKey();
 
         modelBuilder.Entity<Kategorije>(entity =>
         {
@@ -324,7 +325,7 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
             entity.Property(e => e.UslugaId).HasColumnName("usluga_id");
             entity.Property(e => e.CjenovniRang).HasColumnName("cjenovniRang");
             entity.Property(e => e.Detalji).HasColumnName("detalji");
-            entity.Property(e => e.InfoOkompaniji).HasColumnName("infoOKompaniji");
+            entity.Property(e => e.InfoOKompaniji).HasColumnName("infoOKompaniji");
             entity.Property(e => e.Naziv).HasColumnName("naziv");
             entity.Property(e => e.Opis).HasColumnName("opis");
             entity.Property(e => e.PartnerId).HasColumnName("partner_id");

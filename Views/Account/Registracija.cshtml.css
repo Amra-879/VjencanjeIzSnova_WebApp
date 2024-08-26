@@ -26,9 +26,9 @@
 }
 
 .left-box {
-    /* background: #b05059; */
-    background: url('C..\wwwroot\images\registration_image.jpg') no-repeat;
+    background: url('wwwroot/images/registration_image.jpg') no-repeat;
     background-size: cover;
+    height: 100%;
 }
 
 .left-box-text {

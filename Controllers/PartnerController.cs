@@ -41,7 +41,7 @@ namespace VjencanjeIzSnova_WebApp.Controllers
                 var korisnik = new Korisnik
                 {
                     Email = model.Email,
-                    UserName = model.Email, // Set UserName to Email or another unique identifier
+                    UserName = model.Email,
                     UserType = model.UserType,
                 };
 

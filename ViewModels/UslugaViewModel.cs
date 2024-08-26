@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VjencanjeIzSnova_WebApp.Models;
 
 namespace VjencanjeIzSnova_WebApp.ViewModels
@@ -10,7 +11,7 @@ namespace VjencanjeIzSnova_WebApp.ViewModels
         [Required]
         public string Naziv { get; set; } = null!;
         [Required]
-        public string? OpisUsluge { get; set; }
+        public string? Opis { get; set; }
         [Required]
         public string? CjenovniRang { get; set; }
         [Required]
@@ -35,6 +36,7 @@ namespace VjencanjeIzSnova_WebApp.ViewModels
 
         public ICollection<Kategorije> KategorijeList { get; set; } = new List<Kategorije>();
 
+        [NotMapped]
         public IFormFileCollection? Slike { get; set; }
     }
 }

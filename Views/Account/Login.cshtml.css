@@ -9,6 +9,28 @@
     width: 930px;
 }
 
+.left-box {
+    background: #b05059;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 1cm; 
+    text-align: center; 
+}
+
+    .left-box p {
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 600;
+        font-size: 2rem;
+    }
+
+    .left-box small {
+        font-family: 'Courier New', Courier, monospace;
+        width: 17rem;
+    }
+
 .right-box {
     padding: 40px 30px 40px 40px;
 }

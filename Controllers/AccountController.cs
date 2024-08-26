@@ -4,6 +4,7 @@ using VjencanjeIzSnova_WebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using VjencanjeIzSnova_WebApp.Models;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace VjencanjeIzSnova_WebApp.Controllers
 {
@@ -28,16 +29,21 @@ namespace VjencanjeIzSnova_WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        [Route("login")]
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                //login
+                var result = await _signInManager.PasswordSignInAsync(model.Email!, model.Password!, model.RememberMe, false);
+
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToLocal(returnUrl);
                 }
-                ModelState.AddModelError(string.Empty, "Neuspješan pokušaj prijave.");
+
+                ModelState.AddModelError("", "Neuspješan pokušaj prijave!");
             }
             return View(model);
         }
@@ -93,8 +99,25 @@ namespace VjencanjeIzSnova_WebApp.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.ErrorMessage);
+                }
+            }
 
-            return View(model);
+                return View(model);
+        }
+
+        private IActionResult RedirectToLocal(string? returnUrl)
+        {
+            return !string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)
+                ? Redirect(returnUrl)
+                : RedirectToAction(nameof(HomeController.Index), nameof(HomeController));
         }
     }
 }
+
+

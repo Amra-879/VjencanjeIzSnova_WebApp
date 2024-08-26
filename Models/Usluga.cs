@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace VjencanjeIzSnova_WebApp.Models;
 
 public partial class Usluga
 {
+    [Key]
     public int UslugaId { get; set; }
 
     public int KategorijaId { get; set; }
@@ -15,7 +17,7 @@ public partial class Usluga
 
     public string Detalji { get; set; } = null!;
 
-    public string InfoOkompaniji { get; set; } = null!;
+    public string InfoOKompaniji { get; set; } = null!;
 
     public string Naziv { get; set; } = null!;
 
