@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using VjencanjeIzSnova_WebApp.Data;
 using VjencanjeIzSnova_WebApp.Models;
-using VjencanjeIzSnova_WebApp.ViewModels;
 
 namespace VjencanjeIzSnova_WebApp.Controllers
 {
