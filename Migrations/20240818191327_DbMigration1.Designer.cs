@@ -264,14 +264,14 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(10)")
-                        .HasColumnName("ProfilnaSlikaUrl");
+                        .HasColumnName("user_type");
 
                     b.HasKey("Id");
 
                     b.ToTable("Korisnik", null, t =>
                         {
                             t.Property("ProfilnaSlikaUrl")
-                                .HasColumnName("ProfilnaSlikaUrl1");
+                                .HasColumnName("ProfilnaSlikaUrl");
                         });
                 });
 

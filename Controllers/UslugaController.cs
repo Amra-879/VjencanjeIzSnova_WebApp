@@ -55,7 +55,7 @@ namespace VjencanjeIzSnova_WebApp.Controllers
         public IActionResult Create()
         {
             ViewBag.Kategorija = new SelectList(_context.Kategorije, "KategorijaId", "Naziv");
-            ViewBag.Partner = new SelectList(_context.Partneri, "PartnerId", "PartnerId");
+            ViewBag.Partner = new SelectList(_context.Partneri, "PartnerId", "Ime");
             return View();
         }
 
@@ -109,7 +109,7 @@ namespace VjencanjeIzSnova_WebApp.Controllers
 
 
             ViewBag.Kategorija = new SelectList(_context.Kategorije, "KategorijaId", "Naziv", usluga.KategorijaId);
-            ViewBag.Partner = new SelectList(_context.Partneri, "PartnerId", "PartnerId", usluga.PartnerId);
+            ViewBag.Partner = new SelectList(_context.Partneri, "PartnerId", "Ime", usluga.PartnerId);
             return View(usluga);
         }
 
@@ -128,8 +128,8 @@ namespace VjencanjeIzSnova_WebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["KategorijaId"] = new SelectList(_context.Kategorije, "KategorijaId", "KategorijaId", usluga.KategorijaId);
-            ViewData["PartnerId"] = new SelectList(_context.Partneri, "PartnerId", "PartnerId", usluga.PartnerId);
+            ViewData["KategorijaId"] = new SelectList(_context.Kategorije, "KategorijaId", "Naziv", usluga.KategorijaId);
+            ViewData["PartnerId"] = new SelectList(_context.Partneri, "PartnerId", "Ime", usluga.PartnerId);
             return View(usluga);
         }
 
@@ -165,8 +165,8 @@ namespace VjencanjeIzSnova_WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KategorijaId"] = new SelectList(_context.Kategorije, "KategorijaId", "KategorijaId", usluga.KategorijaId);
-            ViewData["PartnerId"] = new SelectList(_context.Partneri, "PartnerId", "PartnerId", usluga.PartnerId);
+            ViewData["KategorijaId"] = new SelectList(_context.Kategorije, "KategorijaId", "Naziv", usluga.KategorijaId);
+            ViewData["PartnerId"] = new SelectList(_context.Partneri, "PartnerId", "Ime", usluga.PartnerId);
             return View(usluga);
         }
 

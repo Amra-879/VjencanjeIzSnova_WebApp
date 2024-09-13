@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using VjencanjeIzSnova_WebApp.Models;
 using VjencanjeIzSnova_WebApp.ViewModels;
+using static VjencanjeIzSnova_WebApp.Models.OmiljeneStavke;
 
 namespace VjencanjeIzSnova_WebApp.Data;
 
@@ -18,6 +19,10 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
         : base(options)
     {
         _configuration = configuration;
+    }
+
+    public VjencanjeIzSnovaDbContext()
+    {
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,6 +46,8 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
 
     public virtual DbSet<Planer> Planeri { get; set; }
 
+    public virtual DbSet<Usluga> Usluge { get; set; }
+
     public virtual DbSet<Transakcija> Plaćanja { get; set; }
 
     public virtual DbSet<Recenzija> Recenzije { get; set; }
@@ -49,7 +56,10 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
 
     public virtual DbSet<Slike> Slike { get; set; }
 
-    public virtual DbSet<Usluga> Usluge { get; set; }
+    public virtual DbSet<OmiljeneStavke> Omiljeno { get; set; }
+
+ 
+
 
    /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -61,7 +71,6 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
         modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
         modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
         modelBuilder.Entity<PartnerViewModel>().HasNoKey();
-        modelBuilder.Entity<UslugaViewModel>().HasNoKey();
 
         modelBuilder.Entity<Kategorije>(entity =>
         {
@@ -120,8 +129,8 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
             entity.Property(e => e.UserType)
                 .HasColumnType("NVARCHAR(20)")
                 .HasColumnName("user_type");
-            entity.Property(e => e.UserType)
-               .HasColumnType("NVARCHAR(10)")
+            entity.Property(e => e.ProfilnaSlikaUrl)
+               .HasColumnType("text")
                .HasColumnName("ProfilnaSlikaUrl");
         });
 
@@ -309,6 +318,10 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
 
             entity.ToTable("Slike");
 
+            entity.Property(e => e.SlikaId).HasColumnName("SlikaId");
+            entity.Property(e => e.Url).HasColumnName("Url");
+            entity.Property(e => e.UslugaId).HasColumnName("UslugaId");
+
             entity.HasOne(d => d.Usluga).WithMany(p => p.Slike)
                 .HasForeignKey(d => d.UslugaId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
@@ -329,10 +342,33 @@ public partial class VjencanjeIzSnovaDbContext : IdentityDbContext<Korisnik>
             entity.Property(e => e.Naziv).HasColumnName("naziv");
             entity.Property(e => e.Opis).HasColumnName("opis");
             entity.Property(e => e.PartnerId).HasColumnName("partner_id");
+            entity.Property(e => e.Grad).HasColumnName("Grad");
+            entity.Property(e => e.Adresa).HasColumnName("Adresa");
+            entity.Property(e => e.FacebookLink).HasColumnName("FacebookLink");
+            entity.Property(e => e.InsragramLink).HasColumnName("InstagramLink");
+            entity.Property(e => e.WebsiteLink).HasColumnName("WebsiteLink");
 
             entity.HasOne(d => d.Kategorija).WithMany(p => p.Usluge).HasForeignKey(d => d.KategorijaId);
 
             entity.HasOne(d => d.Partner).WithMany(p => p.Usluge).HasForeignKey(d => d.PartnerId);
+        });
+
+        modelBuilder.Entity<OmiljeneStavke>(entity =>
+        {
+            entity.ToTable("OmiljeneStavke");
+
+            entity.Property(e => e.KlijentId).HasColumnName("KlijentId");
+            entity.Property(e => e.UslugaId).HasColumnName("UslugaId");
+
+            entity.HasIndex(e => e.KlijentId, "IX_Klijent_Omiljeno");
+
+            entity.HasIndex(e => e.UslugaId, "IX_Usluga_Omiljeno");
+
+            modelBuilder.Entity<OmiljeneStavke>().HasKey(f => new { f.KlijentId, f.UslugaId });
+
+            entity.HasOne(d => d.klijent).WithMany(p => p.Omiljeno).HasForeignKey(f => f.KlijentId);
+
+            entity.HasOne(d => d.usluga).WithMany(i => i.FavoritedBy).HasForeignKey(f => f.UslugaId);
         });
 
         OnModelCreatingPartial(modelBuilder);

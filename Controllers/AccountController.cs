@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using VjencanjeIzSnova_WebApp.Models;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace VjencanjeIzSnova_WebApp.Controllers
 {
@@ -39,6 +41,15 @@ namespace VjencanjeIzSnova_WebApp.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
+                    //autorizacija
+                    var claims = new List<Claim>
+                    {
+                    new Claim("UserType", user.UserType) 
+                    };
+
+                    var identity = new ClaimsIdentity(claims, "login");
+                    await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+
                     // Sign in 
                     await _signInManager.SignInAsync(user, model.RememberMe);
 

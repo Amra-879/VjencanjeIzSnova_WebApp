@@ -27,6 +27,8 @@ namespace VjencanjeIzSnova_WebApp.ViewModels
 		[Required]
 		public int KategorijaId { get; set; }
 
-		public IEnumerable<Kategorije> KategorijeList { get; set; } = new List<Kategorije>();
-	}
+        public IEnumerable<Kategorije> KategorijeList { get; set; } = new List<Kategorije>();
+    }
 }
+
+   

@@ -33,7 +33,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -53,7 +53,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -73,7 +73,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -92,7 +92,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -103,7 +103,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -122,7 +122,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.Property<string>("Value")
                         .HasColumnType("TEXT");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("PlanerKlijenti", b =>
@@ -268,7 +268,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.ToTable("Korisnik", null, t =>
                         {
                             t.Property("ProfilnaSlikaUrl")
-                                .HasColumnName("ProfilnaSlikaUrl1");
+                                .HasColumnName("ProfilnaSlikaUrl");
                         });
                 });
 
@@ -299,6 +299,25 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Košarica", (string)null);
+                });
+
+            modelBuilder.Entity("VjencanjeIzSnova_WebApp.Models.OmiljeneStavke", b =>
+                {
+                    b.Property<int>("KlijentId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("KlijentId");
+
+                    b.Property<int>("UslugaId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("UslugaId");
+
+                    b.HasKey("KlijentId", "UslugaId");
+
+                    b.HasIndex(new[] { "KlijentId" }, "IX_Klijent_Omiljeno");
+
+                    b.HasIndex(new[] { "UslugaId" }, "IX_Usluga_Omiljeno");
+
+                    b.ToTable("OmiljeneStavke", (string)null);
                 });
 
             modelBuilder.Entity("VjencanjeIzSnova_WebApp.Models.Partner", b =>
@@ -461,13 +480,16 @@ namespace VjencanjeIzSnova_WebApp.Migrations
             modelBuilder.Entity("VjencanjeIzSnova_WebApp.Models.Slike", b =>
                 {
                     b.Property<string>("Url")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Url");
 
                     b.Property<int>("SlikaId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("SlikaId");
 
                     b.Property<int>("UslugaId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("UslugaId");
 
                     b.HasKey("Url");
 
@@ -517,6 +539,11 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("usluga_id");
 
+                    b.Property<string>("Adresa")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Adresa");
+
                     b.Property<string>("CjenovniRang")
                         .HasColumnType("TEXT")
                         .HasColumnName("cjenovniRang");
@@ -526,10 +553,23 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("detalji");
 
+                    b.Property<string>("FacebookLink")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("FacebookLink");
+
+                    b.Property<string>("Grad")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Grad");
+
                     b.Property<string>("InfoOKompaniji")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("infoOKompaniji");
+
+                    b.Property<string>("InsragramLink")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("InstagramLink");
 
                     b.Property<int>("KategorijaId")
                         .HasColumnType("INTEGER");
@@ -550,6 +590,10 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                     b.Property<int>("PartnerId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("partner_id");
+
+                    b.Property<string>("WebsiteLink")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("WebsiteLink");
 
                     b.HasKey("UslugaId");
 
@@ -584,7 +628,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.ToTable("PartnerViewModel");
+                    b.ToTable("PartnerViewModel", (string)null);
                 });
 
             modelBuilder.Entity("VjencanjeIzSnova_WebApp.ViewModels.UslugaViewModel", b =>
@@ -612,7 +656,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OpisUsluge")
+                    b.Property<string>("Opis")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -633,7 +677,7 @@ namespace VjencanjeIzSnova_WebApp.Migrations
 
                     b.HasIndex("UslugaId");
 
-                    b.ToTable("UslugaViewModel");
+                    b.ToTable("UslugaViewModel", (string)null);
                 });
 
             modelBuilder.Entity("PlanerKlijenti", b =>
@@ -666,6 +710,25 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                         .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("VjencanjeIzSnova_WebApp.Models.OmiljeneStavke", b =>
+                {
+                    b.HasOne("VjencanjeIzSnova_WebApp.Models.Klijent", "klijent")
+                        .WithMany("Omiljeno")
+                        .HasForeignKey("KlijentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VjencanjeIzSnova_WebApp.Models.Usluga", "usluga")
+                        .WithMany("FavoritedBy")
+                        .HasForeignKey("UslugaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("klijent");
+
+                    b.Navigation("usluga");
                 });
 
             modelBuilder.Entity("VjencanjeIzSnova_WebApp.Models.Partner", b =>
@@ -792,6 +855,8 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                 {
                     b.Navigation("Košarica");
 
+                    b.Navigation("Omiljeno");
+
                     b.Navigation("Plaćanja");
 
                     b.Navigation("Recenzije");
@@ -817,6 +882,8 @@ namespace VjencanjeIzSnova_WebApp.Migrations
 
             modelBuilder.Entity("VjencanjeIzSnova_WebApp.Models.Usluga", b =>
                 {
+                    b.Navigation("FavoritedBy");
+
                     b.Navigation("Rezervacije");
 
                     b.Navigation("Slike");

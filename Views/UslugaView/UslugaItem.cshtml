@@ -1,0 +1,73 @@
+﻿@model Tuple<Usluga, Upit>
+
+<div class="container">
+    <div class="row">
+        <!-- Left Side: Details -->
+        <div class="col-md-6">
+            <h2>@Model.Item1.Naziv</h2>
+            <div>
+                <span class="badge badge-success">@Model.Item1.Recenzija</span>
+                <span>(@Model.Item1 getBrojRecenzija )</span>
+            </div>
+            <p>@Model.Item1.Adresa</p>
+            <p>@Model.Item1.Grad</p>
+        </div>
+        <hr<
+        <h2>Opis</h2><br />
+        <span>@Model.Item1.Opis</span>
+
+
+        <!-- Right Side: Forma za upite -->
+        <div class="col-md-6">
+            <form asp-action="PosaljiUpit" method="post">
+                <div class="form-group">
+                    <label for="Ime">Ime</label>
+                    <input type="text" class="form-control" id="Ime" name="Ime" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Prezime">Prezime</label>
+                    <input type="text" class="form-control" id="Prezime" name="Prezime" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Email*</label>
+                    <input type="email" class="form-control" id="Email" name="Email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="DatumVjenčanja">Datum vjenčanja*</label>
+                    <input type="date" class="form-control" id="DatumVjenčanja" name="DatumVjenčanja" required />
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="DatumVjenčanjaJeFleksibilan" name="DatumVjenčanjaJeFleksibilan">
+                    <label class="form-check-label" for="DatumVjenčanjaJeFleksibilan">Moj datum je prilagodljiv. </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="BrojGostiju">Broj Gostiju</label>
+                    <select class="form-control" id="BrojGostiju" name="BrojGostiju" required>
+                        <option value="50">Do 50</option>
+                        <option value="100">Do 100</option>
+                        <option value="150">Od 100 do 150</option>
+                        <option value="200">Od 150 do 200</option>
+                        <option value="250">Preko 200</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="BrojTelefona">Broj telefona</label>
+                    <input type="tel" class="form-control" id="BrojTelefona" name="BrojTelefona" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Poruka">Predstavite se i podijelite s nama vašu viziju svog vjenčanja.</label>
+                    <textarea class="form-control" id="Poruka" name="Poruka" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-pink">Pošalji upit</button>
+            </form>
+        </div>
+    </div>
+</div>

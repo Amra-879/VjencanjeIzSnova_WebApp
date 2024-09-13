@@ -16,4 +16,6 @@ public partial class Korisnik : IdentityUser
     public virtual Partner? Partner { get; set; }
 
     public virtual Planer? Planer { get; set; }
+
+
 }

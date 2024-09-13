@@ -30,8 +30,8 @@ namespace VjencanjeIzSnova_WebApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    ProfilnaSlikaUrl = table.Column<string>(type: "NVARCHAR(10)", nullable: false),
-                    ProfilnaSlikaUrl1 = table.Column<string>(type: "TEXT", nullable: true),
+                    user_type = table.Column<string>(type: "NVARCHAR(10)", nullable: false),
+                    ProfilnaSlikaUrl = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),

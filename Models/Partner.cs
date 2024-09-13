@@ -17,6 +17,8 @@ public partial class Partner
     public int? KategorijaId { get; set; }
 
     public virtual Kategorije? Kategorija { get; set; }
+    //public IEnumerable<Kategorije> KategorijeList { get; set; } = new List<Kategorije>();
+
 
     public virtual ICollection<Recenzija> Recenzije { get; set; } = new List<Recenzija>();
 

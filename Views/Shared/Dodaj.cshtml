@@ -1,0 +1,59 @@
+﻿@model VjencanjeIzSnova_WebApp.Models.Partner
+
+@{
+    ViewData["Title"] = "Dodaj partnera";
+}
+
+<h1>Create Partner</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Dodaj" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Ime" class="control-label"></label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Mobitel" class="control-label"></label>
+                <input asp-for="Mobitel" class="form-control" />
+                <span asp-validation-for="Mobitel" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="KategorijaId" class="control-label">Kategorija</label>
+                <select asp-for="KategorijaId" class="form-control" asp-items="ViewBag.Kategorija"></select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <input type="password" name="password" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+      </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+     </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

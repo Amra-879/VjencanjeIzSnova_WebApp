@@ -26,6 +26,8 @@ public partial class Klijent
 
     public virtual ICollection<Rezervacija> Rezervacije { get; set; } = new List<Rezervacija>();
 
+    public ICollection<OmiljeneStavke> Omiljeno { get; set; } = new List<OmiljeneStavke>();
+
 
     [ForeignKey("UserId")]
     public Korisnik User { get; set; }

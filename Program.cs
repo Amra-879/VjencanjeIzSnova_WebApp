@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using VjencanjeIzSnova_WebApp.Autorizacija_Policies;
 using VjencanjeIzSnova_WebApp.Data;
 using VjencanjeIzSnova_WebApp.Models;
 
@@ -33,7 +35,6 @@ builder.Services.AddIdentity<Korisnik, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 // Add services to the container.
-//builder.Services.AddAuthentication();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -44,6 +45,15 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Partner", policy =>
+        policy.Requirements.Add(new UserTypeRequirement("Partner")));
+});
+
+// Register the authorization handler
+builder.Services.AddSingleton<IAuthorizationHandler, UserTypeHandler>();
 
 var app = builder.Build();
 

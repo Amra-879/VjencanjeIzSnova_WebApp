@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - VjencanjeIzSnova_July</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom-sidebar.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <div class="d-flex w-100 justify-content-end align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a href="/notifications" class="nav-link">Notifications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/profile" class="nav-link">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a href="/login" class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Account/Registracija" class="nav-link">Registracija</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-header">
+                <img src="~/images/logo.png" style="height: 40px; margin-right: 10px;">
+                <h4>Vjenčanje iz Snova</h4>
+            </div>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="/">Početna stranica</a>
+                </li>
+                <li>
+                    <a href="#uslugaSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usluga</a>
+                    <ul class="collapse list-unstyled" id="uslugaSubmenu">
+                        <li><a href="/Usluga/Kreiraj">Kreiraj novu uslugu</a></li>
+                        <li><a href="/Usluga/Pregled">Pregled usluga</a></li>
+                        <li><a href="/Usluga/Obrisi">Obriši uslugu</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/Upiti">Upiti</a>
+                </li>
+                <li>
+                    <a href="/Rezervacije">Rezervacije</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content" class="container-fluid p-4">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer text-muted">
+        <div class="container" align="center">
+            &copy; 2024 - VjencanjeIzSnova_July - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
